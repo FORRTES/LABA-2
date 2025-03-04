@@ -1,63 +1,63 @@
 open System
 
-/// Функция для получения суммы цифр числа
+/// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃСѓРјРјС‹ С†РёС„СЂ С‡РёСЃР»Р° (Function to get the sum of digits of a number)
 let sumOfDigits (n: int) =
     n.ToString()
     |> Seq.map (fun c -> int c - int '0')
     |> Seq.sum
 
-/// Функция для обработки списка и получения нового списка с суммами цифр
+/// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РѕР±СЂР°Р±РѕС‚РєРё СЃРїРёСЃРєР° Рё РїРѕР»СѓС‡РµРЅРёСЏ РЅРѕРІРѕРіРѕ СЃРїРёСЃРєР° СЃ СЃСѓРјРјР°РјРё С†РёС„СЂ (Function to process the list and get a new list with digit sums)
 let processList lst =
     List.map sumOfDigits lst
 
-/// Функция для получения списка чисел от пользователя
+/// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° С‡РёСЃРµР» РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (Function to get a list of numbers from the user)
 let rec inputList count =
     if count <= 0 then []
     else
-        printf "Введите натуральное число: "
+        printf "Enter a natural number: "
         match Int32.TryParse(Console.ReadLine()) with
         | true, n when n > 0 -> n :: inputList (count - 1)
         | _ -> 
-            printfn "Ошибка ввода! Попробуйте снова."
+            printfn "Input error! Please try again."
             inputList count
 
-/// Функция для генерации случайного списка
+/// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РіРµРЅРµСЂР°С†РёРё СЃР»СѓС‡Р°Р№РЅРѕРіРѕ СЃРїРёСЃРєР° (Function to generate a random list)
 let generateRandomList count maxVal =
     let rnd = Random()
     List.init count (fun _ -> rnd.Next(1, maxVal + 1))
 
-/// Функция выбора метода получения списка
+/// Р¤СѓРЅРєС†РёСЏ РІС‹Р±РѕСЂР° РјРµС‚РѕРґР° РїРѕР»СѓС‡РµРЅРёСЏ СЃРїРёСЃРєР° (Function to select the input method)
 let rec getMethodChoice () =
-    printfn "Выберите способ ввода данных:"
-    printfn "1 - Ввести вручную"
-    printfn "2 - Сгенерировать случайные числа"
-    printf "Ваш выбор: "
+    printfn "Select input method:"
+    printfn "1 - Enter manually"
+    printfn "2 - Generate random numbers"
+    printf "Your choice: "
     match Console.ReadLine() with
     | "1" | "2" as choice -> choice
     | _ -> 
-        printfn "Ошибка: некорректный выбор метода! Попробуйте снова."
+        printfn "Error: incorrect method choice! Please try again."
         getMethodChoice ()
 
-/// Функция для ввода количества чисел
+/// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІРІРѕРґР° РєРѕР»РёС‡РµСЃС‚РІР° С‡РёСЃРµР» (Function to input the number of numbers)
 let rec getCount () =
-    printf "Сколько чисел? "
+    printf "How many numbers? "
     match Int32.TryParse(Console.ReadLine()) with
     | true, count when count > 0 -> count
     | _ -> 
-        printfn "Ошибка ввода! Попробуйте снова."
+        printfn "Input error! Please try again."
         getCount ()
 
-/// Функция для запроса продолжения работы
+/// Р¤СѓРЅРєС†РёСЏ РґР»СЏ Р·Р°РїСЂРѕСЃР° РїСЂРѕРґРѕР»Р¶РµРЅРёСЏ СЂР°Р±РѕС‚С‹ (Function to ask whether to continue)
 let rec askContinue () =
-    printfn "Хотите продолжить? (да/нет)"
+    printfn "Do you want to continue? (yes/no)"
     match Console.ReadLine().ToLower() with
-    | "да" | "д" -> true
-    | "нет" | "н" -> false
+    | "yes" | "y" -> true
+    | "no" | "n" -> false
     | _ -> 
-        printfn "Ошибка: введите 'да' или 'нет'."
+        printfn "Error: please enter 'yes' or 'no'."
         askContinue ()
 
-/// Основная функция работы с пользователем
+/// РћСЃРЅРѕРІРЅР°СЏ С„СѓРЅРєС†РёСЏ СЂР°Р±РѕС‚С‹ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј (Main function to interact with the user)
 let rec main () =
     let methodChoice = getMethodChoice()
     let count = getCount()
@@ -66,13 +66,13 @@ let rec main () =
         match methodChoice with
         | "1" -> inputList count
         | "2" -> generateRandomList count 1000
-        | _ -> []  // этот случай никогда не произойдет, но нужен для соответствия типам
+        | _ -> []  // СЌС‚РѕС‚ СЃР»СѓС‡Р°Р№ РЅРёРєРѕРіРґР° РЅРµ РїСЂРѕРёР·РѕР№РґРµС‚, РЅРѕ РЅСѓР¶РµРЅ РґР»СЏ СЃРѕРѕС‚РІРµС‚СЃС‚РІРёСЏ С‚РёРїР°Рј (This case will never happen, but is needed for type matching)
 
-    printfn "Исходный список: %A" inputList
+    printfn "Original list: %A" inputList
     let resultList = processList inputList
-    printfn "Результат: %A" resultList
+    printfn "Result: %A" resultList
 
     if askContinue () then main ()
-    else printfn "Программа завершена."
+    else printfn "Program terminated."
 
 main ()
