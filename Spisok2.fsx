@@ -1,96 +1,96 @@
 open System
 open System.Globalization
 
-// Ôóíêöèÿ ãåíåðàöèè ñëó÷àéíîãî ñïèñêà äðîáíûõ ÷èñåë
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ð¸ ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ð¾Ð³Ð¾ ÑÐ¿Ð¸ÑÐºÐ° Ð´Ñ€Ð¾Ð±Ð½Ñ‹Ñ… Ñ‡Ð¸ÑÐµÐ»
 let generateRandomList length =
     let rand = Random()
-    List.init length (fun _ -> rand.NextDouble() * 1000.0) // Ãåíåðàöèÿ ÷èñåë îò 0.0 äî 1000.0
+    List.init length (fun _ -> rand.NextDouble() * 1000.0) // Ð“ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ Ñ‡Ð¸ÑÐµÐ» Ð¾Ñ‚ 0.0 Ð´Ð¾ 1000.0
 
-// Ôóíêöèÿ ïðîâåðêè, íà÷èíàåòñÿ ëè ÷èñëî ñ çàäàííîé öèôðû
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸, Ð½Ð°Ñ‡Ð¸Ð½Ð°ÐµÑ‚ÑÑ Ð»Ð¸ Ñ‡Ð¸ÑÐ»Ð¾ Ñ Ð·Ð°Ð´Ð°Ð½Ð½Ð¾Ð¹ Ñ†Ð¸Ñ„Ñ€Ñ‹
 let startsWithDigit digit (num: float) =
-    let strNum = num.ToString("G17", CultureInfo.InvariantCulture) // Èñïîëüçóåì G17 äëÿ òî÷íîãî ïðåäñòàâëåíèÿ áåç ëèøíèõ íóëåé
+    let strNum = num.ToString("G17", CultureInfo.InvariantCulture) // Ð˜ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐµÐ¼ G17 Ð´Ð»Ñ Ñ‚Ð¾Ñ‡Ð½Ð¾Ð³Ð¾ Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð¸Ñ Ð±ÐµÐ· Ð»Ð¸ÑˆÐ½Ð¸Ñ… Ð½ÑƒÐ»ÐµÐ¹
     strNum.StartsWith(digit.ToString())
 
-// Ôóíêöèÿ ñóììèðîâàíèÿ ýëåìåíòîâ, íà÷èíàþùèõñÿ ñ óêàçàííîé öèôðû
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ ÑÑƒÐ¼Ð¼Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸Ñ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð², Ð½Ð°Ñ‡Ð¸Ð½Ð°ÑŽÑ‰Ð¸Ñ…ÑÑ Ñ ÑƒÐºÐ°Ð·Ð°Ð½Ð½Ð¾Ð¹ Ñ†Ð¸Ñ„Ñ€Ñ‹
 let sumNumbersStartingWith digit numbers =
     numbers
     |> List.filter (startsWithDigit digit)
     |> List.fold (+) 0.0
 
-// Ôóíêöèÿ ïðîâåðêè è ïàðñèíãà `float`
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸ Ð¸ Ð¿Ð°Ñ€ÑÐ¸Ð½Ð³Ð° `float`
 let tryParseFloat (str: string) =
     match Double.TryParse(str, NumberStyles.Float, CultureInfo.InvariantCulture) with
     | (true, num) -> Some num
     | _ -> None
 
-// Ôóíêöèÿ äëÿ çàïðîñà ó ïîëüçîâàòåëÿ êîððåêòíîãî `float`
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð´Ð»Ñ Ð·Ð°Ð¿Ñ€Ð¾ÑÐ° Ñƒ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ð¾Ð³Ð¾ `float`
 let rec getValidFloatInput prompt validate =
     printf "%s" prompt
     match Console.ReadLine() with
     | null | "" -> 
-        printfn "Îøèáêà ââîäà! Ïîïðîáóéòå åù¸ ðàç."
+        printfn "ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ð²Ð¾Ð´Ð°! ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·."
         getValidFloatInput prompt validate
     | input ->
         match tryParseFloat input with
         | Some num when validate num -> num
         | _ ->
-            printfn "Îøèáêà ââîäà! Ïîïðîáóéòå åù¸ ðàç."
+            printfn "ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ð²Ð¾Ð´Ð°! ÐŸÐ¾Ð¿Ñ€Ð¾Ð±ÑƒÐ¹Ñ‚Ðµ ÐµÑ‰Ñ‘ Ñ€Ð°Ð·."
             getValidFloatInput prompt validate
 
-// Ôóíêöèÿ ïîëó÷åíèÿ ñïèñêà äðîáíûõ ÷èñåë îò ïîëüçîâàòåëÿ
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ð¾Ð»ÑƒÑ‡ÐµÐ½Ð¸Ñ ÑÐ¿Ð¸ÑÐºÐ° Ð´Ñ€Ð¾Ð±Ð½Ñ‹Ñ… Ñ‡Ð¸ÑÐµÐ» Ð¾Ñ‚ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ
 let rec getValidFloatList prompt =
     printf "%s" prompt
     let input = Console.ReadLine()
     match input with
     | null | "" ->
-        printfn "Îøèáêà ââîäà! Ââåäèòå õîòÿ áû îäíî ÷èñëî."
+        printfn "ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ð²Ð¾Ð´Ð°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¾Ð´Ð½Ð¾ Ñ‡Ð¸ÑÐ»Ð¾."
         getValidFloatList prompt
     | _ ->
         let numbers = input.Split(' ') |> Array.toList |> List.choose tryParseFloat
         if numbers.IsEmpty then
-            printfn "Îøèáêà ââîäà! Ââåäèòå õîòÿ áû îäíî ÷èñëî."
+            printfn "ÐžÑˆÐ¸Ð±ÐºÐ° Ð²Ð²Ð¾Ð´Ð°! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¾Ð´Ð½Ð¾ Ñ‡Ð¸ÑÐ»Ð¾."
             getValidFloatList prompt
         else numbers
 
-// Ôóíêöèÿ ïðîâåðêè, õî÷åò ëè ïîëüçîâàòåëü ïðîäîëæèòü
+// Ð¤ÑƒÐ½ÐºÑ†Ð¸Ñ Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ¸, Ñ…Ð¾Ñ‡ÐµÑ‚ Ð»Ð¸ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ
 let rec askToContinue () =
-    printf "Õîòèòå ïðîäîëæèòü? (äà/íåò): "
+    printf "Ð¥Ð¾Ñ‚Ð¸Ñ‚Ðµ Ð¿Ñ€Ð¾Ð´Ð¾Ð»Ð¶Ð¸Ñ‚ÑŒ? (Ð´Ð°/Ð½ÐµÑ‚): "
     match Console.ReadLine() with
     | null | "" ->
-        printfn "Íåâåðíûé ââîä! Ââåäèòå 'äà' èëè 'íåò'."
+        printfn "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 'Ð´Ð°' Ð¸Ð»Ð¸ 'Ð½ÐµÑ‚'."
         askToContinue ()
     | input ->
         match input.Trim().ToLower() with
-        | "äà" -> true
-        | "íåò" -> false
+        | "Ð´Ð°" -> true
+        | "Ð½ÐµÑ‚" -> false
         | _ ->
-            printfn "Íåâåðíûé ââîä! Ââåäèòå 'äà' èëè 'íåò'."
+            printfn "ÐÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´! Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ 'Ð´Ð°' Ð¸Ð»Ð¸ 'Ð½ÐµÑ‚'."
             askToContinue ()
 
-// Ãëàâíàÿ ïðîãðàììà ñ öèêëîì
+// Ð“Ð»Ð°Ð²Ð½Ð°Ñ Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð° Ñ Ñ†Ð¸ÐºÐ»Ð¾Ð¼
 let rec main () =
-    let choice = getValidFloatInput "Âûáåðèòå ðåæèì (1 - ââîä ñïèñêà, 2 - ñëó÷àéíàÿ ãåíåðàöèÿ): " (fun x -> x = 1.0 || x = 2.0)
+    let choice = getValidFloatInput "Ð’Ñ‹Ð±ÐµÑ€Ð¸Ñ‚Ðµ Ñ€ÐµÐ¶Ð¸Ð¼ (1 - Ð²Ð²Ð¾Ð´ ÑÐ¿Ð¸ÑÐºÐ°, 2 - ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ð°Ñ Ð³ÐµÐ½ÐµÑ€Ð°Ñ†Ð¸Ñ): " (fun x -> x = 1.0 || x = 2.0)
 
     let numbers =
         match int choice with
-        | 1 -> getValidFloatList "Ââåäèòå ÷èñëà ÷åðåç ïðîáåë (èñïîëüçóéòå òî÷êó äëÿ äðîáíûõ): "
+        | 1 -> getValidFloatList "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»Ð° Ñ‡ÐµÑ€ÐµÐ· Ð¿Ñ€Ð¾Ð±ÐµÐ» (Ð¸ÑÐ¿Ð¾Ð»ÑŒÐ·ÑƒÐ¹Ñ‚Ðµ Ñ‚Ð¾Ñ‡ÐºÑƒ Ð´Ð»Ñ Ð´Ñ€Ð¾Ð±Ð½Ñ‹Ñ…): "
         | 2 -> 
-            let count = getValidFloatInput "Ââåäèòå êîëè÷åñòâî ñëó÷àéíûõ ÷èñåë (1-100): " (fun x -> x > 0.0 && x <= 100.0)
+            let count = getValidFloatInput "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ¾Ð»Ð¸Ñ‡ÐµÑÑ‚Ð²Ð¾ ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ñ… Ñ‡Ð¸ÑÐµÐ» (1-100): " (fun x -> x > 0.0 && x <= 100.0)
             let generatedNumbers = generateRandomList (int count)
-            printfn "Ñëó÷àéíûé ñïèñîê: %A" generatedNumbers
+            printfn "Ð¡Ð»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ð¹ ÑÐ¿Ð¸ÑÐ¾Ðº: %A" generatedNumbers
             generatedNumbers
-        | _ -> [] // íèêîãäà íå ñðàáîòàåò, òàê êàê `getValidFloatInput` ãàðàíòèðóåò êîððåêòíûé ââîä
+        | _ -> [] // Ð½Ð¸ÐºÐ¾Ð³Ð´Ð° Ð½Ðµ ÑÑ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚, Ñ‚Ð°Ðº ÐºÐ°Ðº `getValidFloatInput` Ð³Ð°Ñ€Ð°Ð½Ñ‚Ð¸Ñ€ÑƒÐµÑ‚ ÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹ Ð²Ð²Ð¾Ð´
 
-    let digit = getValidFloatInput "Ââåäèòå öèôðó (0-9), ñ êîòîðîé äîëæíû íà÷èíàòüñÿ ÷èñëà: " (fun x -> x >= 0.0 && x <= 9.0)
+    let digit = getValidFloatInput "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ†Ð¸Ñ„Ñ€Ñƒ (0-9), Ñ ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¹ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ Ð½Ð°Ñ‡Ð¸Ð½Ð°Ñ‚ÑŒÑÑ Ñ‡Ð¸ÑÐ»Ð°: " (fun x -> x >= 0.0 && x <= 9.0)
 
     let result = sumNumbersStartingWith (int digit) numbers
 
-    printfn "Ñóììà ÷èñåë, íà÷èíàþùèõñÿ íà %d: %s" (int digit) (result.ToString("G17", CultureInfo.InvariantCulture))
+    printfn "Ð¡ÑƒÐ¼Ð¼Ð° Ñ‡Ð¸ÑÐµÐ», Ð½Ð°Ñ‡Ð¸Ð½Ð°ÑŽÑ‰Ð¸Ñ…ÑÑ Ð½Ð° %d: %s" (int digit) (result.ToString("G17", CultureInfo.InvariantCulture))
 
     if askToContinue () then 
         main ()
     else 
-        printfn "Ïðîãðàììà çàâåðøèëà ðàáîòó."
+        printfn "ÐŸÑ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ð° Ð·Ð°Ð²ÐµÑ€ÑˆÐ¸Ð»Ð° Ñ€Ð°Ð±Ð¾Ñ‚Ñƒ."
 
-// Çàïóñê ïðîãðàììû
+// Ð—Ð°Ð¿ÑƒÑÐº Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹
 main ()
