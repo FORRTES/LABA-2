@@ -66,7 +66,6 @@ let rec main () =
         match methodChoice with
         | "1" -> inputList count
         | "2" -> generateRandomList count 1000
-        | _ -> []  // этот случай никогда не произойдет, но нужен для соответствия типам (This case will never happen, but is needed for type matching)
 
     printfn "Original list: %A" inputList
     let resultList = processList inputList
