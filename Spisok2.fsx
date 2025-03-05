@@ -79,7 +79,6 @@ let rec main () =
             let generatedNumbers = generateRandomList (int count)
             printfn "Случайный список: %A" generatedNumbers
             generatedNumbers
-        | _ -> [] // никогда не сработает, так как `getValidFloatInput` гарантирует корректный ввод
 
     let digit = getValidFloatInput "Введите цифру (0-9), с которой должны начинаться числа: " (fun x -> x >= 0.0 && x <= 9.0)
 
